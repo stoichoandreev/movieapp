@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/DetailImportantLabel"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="2dp"
+            android:text="@string/search_label"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/search_input_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:paddingRight="30dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="60dp"
+                android:hint="@string/search_hint"
+                android:lines="1"
+                android:inputType="textCapSentences|textNoSuggestions"
+                android:textColorHint="@color/light_green"
+                android:background="@color/light_grey"/>
+            <ProgressBar
+                android:id="@+id/search_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:visibility="invisible"/>
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@color/dark_grey"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_results_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</layout>

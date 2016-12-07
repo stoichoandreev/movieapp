@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'me.tatarka.retrolambda'//we can remove this plugin but Jack and Jill is not stable yet
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "24.0.0"
+    compileOptions.incremental = true
+    dataBinding.enabled = true
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger()
+        def name = versionProps['VERSION_NAME']
+        defaultConfig {
+            applicationId "smovie.movieapp"
+            minSdkVersion 17
+            targetSdkVersion 25
+            versionCode code
+            versionName name
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        }
+        buildTypes {
+            debug {
+                debuggable true
+                applicationIdSuffix ".debug"
+                versionNameSuffix "-debug"
+                buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'RETROFIT_LOG_LEVEL', 'okhttp3.logging.HttpLoggingInterceptor.Level.BODY'
+            }
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'RETROFIT_LOG_LEVEL', 'okhttp3.logging.HttpLoggingInterceptor.Level.NONE'
+            }
+        }
+    }else {
+        throw new GradleException("Could not read version.properties!")
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+ext{
+    //dependencies
+    junitVersion = '4.12'
+    mockitoVersion = '2.2.28'
+    espressoVersion = '2.2.2'
+    supportLibraryVersion = '25.0.1'
+    retrofit = '2.1.0'
+    loggingInterceptor = '3.4.2'
+    androidRX = '1.2.1'
+    rxBinding = '1.0.0'
+    picasso = '2.5.2'
+}
+
+dependencies {
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofit"
+    compile "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
+    compile "io.reactivex:rxandroid:$androidRX"
+    compile "com.jakewharton.rxbinding:rxbinding:$rxBinding"
+    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rxBinding"
+    compile "com.squareup.picasso:picasso:$picasso"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+}

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="search_title">Movie Search</string>
+    <string name="details_title">Movie Details</string>
+    <string name="search_label">Please enter movie title</string>
+    <string name="search_hint">enter title here</string>
+    <string name="title_label">Title:&#160;</string>
+    <string name="year_label">Year:&#160;</string>
+    <string name="released_label">Released:&#160;</string>
+    <string name="duration_label">Duration:&#160;</string>
+    <string name="genre_label">Genre:&#160;</string>
+    <string name="language_label">Language:&#160;</string>
+    <string name="country_label">Country:&#160;</string>
+    <string name="awards_label">Awards:&#160;</string>
+    <string name="director_label">Director:&#160;</string>
+    <string name="writer_label">Writer:&#160;</string>
+    <string name="actors_label">Actors:&#160;</string>
+    <string name="imdb_rating_label">IMDB Rating:&#160;</string>
+    <string name="imdb_votes_label">IMDB Votes:&#160;</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00CED1</color>
+    <color name="colorPrimaryDark">#20B2AA</color>
+    <color name="colorAccent">#FF4500</color>
+    <color name="drawer_menu_divider_color">#343534</color>
+    <color name="grey">#9C9C9C</color>
+    <color name="light_grey">#ECECEC</color>
+    <color name="dark_grey">#7C7C7C</color>
+    <color name="light_green">#DD55CDB1</color>
+
+    <color name="text_color_primary">@color/drawer_menu_divider_color</color>
+    <color name="window_background">@android:color/white</color>
+</resources>
