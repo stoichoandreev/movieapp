@@ -4,13 +4,16 @@ import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
+import smovie.movieapp.api.repos.BaseRepository;
+
 public abstract class BasePresenter<V, R> {
 
     protected V mView;
     protected R mRepository;
     protected WeakReference<V> reference;
 
-    protected BasePresenter(){}
+    protected BasePresenter() {
+    }
 
     public BasePresenter(V view, R repository) {
         this.mView = view;

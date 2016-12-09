@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.getkeepsafe.dexcount'//we can skip this plugin in Android Studio 2.2+ because of APK Analyzer
 apply plugin: 'me.tatarka.retrolambda'//we can remove this plugin but Jack and Jill is not stable yet
 
 android {
@@ -7,6 +7,7 @@ android {
     buildToolsVersion "24.0.0"
     compileOptions.incremental = true
     dataBinding.enabled = true
+    testBuildType "debug"
     def versionPropsFile = file('version.properties')
     if (versionPropsFile.canRead()) {
         def Properties versionProps = new Properties()
@@ -36,20 +37,32 @@ android {
                 buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'RETROFIT_LOG_LEVEL', 'okhttp3.logging.HttpLoggingInterceptor.Level.NONE'
             }
         }
-    }else {
+    } else {
         throw new GradleException("Could not read version.properties!")
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            java.excludes = ['src/androidTest/**']
+        }
+        androidTest.setRoot('src/androidTest')
+//        main {
+//            java.srcDirs = ['src/main/java', 'src/androidTest/']
+//        }
+    }
 }
-ext{
+ext {
     //dependencies
-    junitVersion = '4.12'
-    mockitoVersion = '2.2.28'
-    espressoVersion = '2.2.2'
-    supportLibraryVersion = '25.0.1'
+    jUnit = '4.12'
+    mockito = '2.2.28'
+    junitRunner = '0.5'
+    espresso = '2.2.2'
+    mockServer = '3.5.0'
+    supportLibrary = '25.0.1'
     retrofit = '2.1.0'
     loggingInterceptor = '3.4.2'
     androidRX = '1.2.1'
@@ -60,9 +73,9 @@ ext{
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
-    compile "com.android.support:design:$supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$supportLibrary"
+    compile "com.android.support:design:$supportLibrary"
+    compile "com.android.support:recyclerview-v7:$supportLibrary"
     compile "com.squareup.retrofit2:retrofit:$retrofit"
     compile "com.squareup.retrofit2:converter-gson:$retrofit"
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofit"
@@ -72,9 +85,39 @@ dependencies {
     compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rxBinding"
     compile "com.squareup.picasso:picasso:$picasso"
 
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile "junit:junit:$junitVersion"
-    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    /*
+    * Unit test tools (could need Robolectric as well)
+     */
+    testCompile "org.mockito:mockito-core:$mockito"
+    testCompile("com.android.support.test.espresso:espresso-contrib:$espresso") {
+        exclude module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espresso") {
+        exclude module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude module: 'recyclerview-v7'
+    }
+    //Android test tools
+    androidTestCompile "junit:junit:$jUnit"
+    androidTestCompile("com.android.support.test:runner:$junitRunner") {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test:rules:$junitRunner") {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso") {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile("com.squareup.okhttp3:mockwebserver:$mockServer") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    androidTestCompile("com.squareup.retrofit2:retrofit-mock:$retrofit") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
 }

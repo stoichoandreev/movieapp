@@ -8,4 +8,5 @@ import smovie.movieapp.models.MovieDetailsData;
 
 public interface DetailsMovieView extends BaseView{
     void onMovieDetailsReady(MovieDetailsData movieDetails);
+    String getImdbId();
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import smovie.movieapp.api.repos.DetailsMovieRepository;
 import smovie.movieapp.api.repos.interfaces.IDetailsMovieRepository;
 import smovie.movieapp.constants.RequestParameters;
 import smovie.movieapp.models.MovieDetailsData;
@@ -17,18 +18,21 @@ import smovie.movieapp.ui.views.DetailsMovieView;
 
 public class DetailsMoviePresenter extends BasePresenter<DetailsMovieView, IDetailsMovieRepository> {
 
-    public DetailsMoviePresenter(DetailsMovieView view, IDetailsMovieRepository repository){
+    public DetailsMoviePresenter(DetailsMovieView view, DetailsMovieRepository repository){
         super(view, repository);
     }
 
-    public void getMovieDetailsById(String imdbId){
-        if(imdbId == null){
+    public void getMovieDetailsById(){
+        if(mView.getImdbId() == null){
             mView.onRepositoryErrorOccurred(new Throwable("Please provide imdbID !"));
             return;
         }
         final Map<String, String> searchMap = new HashMap<>();
-        searchMap.put(RequestParameters.MOVIE_IMDB_ID_SEARCH, imdbId);
-        mRepository.requestMovieDetails(new IDetailsMovieRepository.Callback<MovieDetailsData>(){
+        searchMap.put(RequestParameters.MOVIE_IMDB_ID_SEARCH, mView.getImdbId());
+        mRepository.requestMovieDetails(getCallback(), searchMap);
+    }
+    public IDetailsMovieRepository.Callback<MovieDetailsData> getCallback(){
+        return new IDetailsMovieRepository.Callback<MovieDetailsData>(){
             @Override
             public void onDataObserveStart() {
                 mView.setProgressVisibility(View.VISIBLE);
@@ -46,6 +50,6 @@ public class DetailsMoviePresenter extends BasePresenter<DetailsMovieView, IDeta
                 mView.setProgressVisibility(View.INVISIBLE);
                 mView.onRepositoryErrorOccurred(throwable);
             }
-        }, searchMap);
+        };
     }
 }

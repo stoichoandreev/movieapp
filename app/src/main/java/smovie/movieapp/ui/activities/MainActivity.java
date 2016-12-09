@@ -3,12 +3,14 @@ package smovie.movieapp.ui.activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.view.View;
 
 import smovie.movieapp.enums.ToolbarAction;
 import smovie.movieapp.ui.fragments.SearchMovieFragment;
 import smovie.movieapp.utils.RegularUtils;
 
+@VisibleForTesting
 public class MainActivity extends BaseActivity {
 
     @Override

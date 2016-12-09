@@ -38,7 +38,6 @@ public class RetrofitServiceProvider {
         }
         final Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-//                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

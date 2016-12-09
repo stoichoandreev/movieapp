@@ -54,7 +54,7 @@ public class DetailsMovieFragment extends BaseFragment implements DetailsMovieVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         fragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_details, container, false);
-        ((DetailsMoviePresenter)mPresenter).getMovieDetailsById(movieData.getImdbID());
+        ((DetailsMoviePresenter)mPresenter).getMovieDetailsById();
 
         return fragmentBinding.getRoot();
     }
@@ -72,7 +72,7 @@ public class DetailsMovieFragment extends BaseFragment implements DetailsMovieVi
             case ACTION_CONNECTIVITY_CHANGE:
                 if(doesDataLoadErrorHappens){
                     doesDataLoadErrorHappens = false;
-                    ((DetailsMoviePresenter)mPresenter).getMovieDetailsById(movieData.getImdbID());
+                    ((DetailsMoviePresenter)mPresenter).getMovieDetailsById();
                 }
                 break;
         }
@@ -81,6 +81,11 @@ public class DetailsMovieFragment extends BaseFragment implements DetailsMovieVi
     @Override
     public void onMovieDetailsReady(MovieDetailsData movieDetails) {
         fragmentBinding.setMovieDetails(movieDetails);
+    }
+
+    @Override
+    public String getImdbId() {
+        return movieData.getImdbID();
     }
 
     @Override

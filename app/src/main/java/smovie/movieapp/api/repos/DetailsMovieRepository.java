@@ -16,7 +16,7 @@ public class DetailsMovieRepository extends BaseRepository implements IDetailsMo
     @Override
     public void requestMovieDetails(Callback<MovieDetailsData> callback, Map<String, String> searchMap) {
         callback.onDataObserveStart();
-        Observable<ExtendedMoveData> movieDetailsObservable = mApiService.getSelectedMovieData(searchMap);
+        Observable<ExtendedMoveData> movieDetailsObservable = getApiService().getSelectedMovieData(searchMap);
         movieDetailsObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ExtendedMoveData>() {

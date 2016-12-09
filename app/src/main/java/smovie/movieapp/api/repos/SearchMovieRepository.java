@@ -26,7 +26,7 @@ public class SearchMovieRepository extends BaseRepository implements ISearchMovi
                         //Make request to get data
                         searchByMap.put(searchBy, s);
                         callback.onDataObserveStart();//send callback to display the progress
-                        return mApiService.getMovieTitles(searchByMap).onErrorResumeNext(Observable.empty());//subscription will be terminated once an error is emitted, we should avoid that
+                        return getApiService().getMovieTitles(searchByMap).onErrorResumeNext(Observable.empty());//subscription will be terminated once an error is emitted, we should avoid that
                     }
                 })
                 .observeOn(Schedulers.io())
