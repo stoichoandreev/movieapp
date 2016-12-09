@@ -7,7 +7,7 @@ android {
     buildToolsVersion "24.0.0"
     compileOptions.incremental = true
     dataBinding.enabled = true
-    testBuildType "debug"
+    testBuildType "debug"//can specify some other build type
     def versionPropsFile = file('version.properties')
     if (versionPropsFile.canRead()) {
         def Properties versionProps = new Properties()
@@ -103,7 +103,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude module: 'recyclerview-v7'
     }
-    //Android test tools
+    //Android Instrumented test tools
     androidTestCompile "junit:junit:$jUnit"
     androidTestCompile("com.android.support.test:runner:$junitRunner") {
         exclude module: 'support-annotations'

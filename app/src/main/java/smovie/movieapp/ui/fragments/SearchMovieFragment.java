@@ -25,6 +25,8 @@ import smovie.movieapp.ui.views.SearchMovieView;
 
 /**
  * Created by sniper on 12/6/16.
+ * This screen could be extended if we make paging implementation into the recyclerview. When user scroll the list and scroll goes to the end (or closer to the end)
+ * then we can make request to get the next page from the list.
  */
 public class SearchMovieFragment extends BaseFragment implements SearchMovieView {
 
