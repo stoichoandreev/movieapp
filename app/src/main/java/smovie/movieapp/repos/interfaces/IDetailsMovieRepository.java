@@ -1,4 +1,4 @@
-package smovie.movieapp.api.repos.interfaces;
+package smovie.movieapp.repos.interfaces;
 
 import java.util.Map;
 

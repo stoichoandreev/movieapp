@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
-import smovie.movieapp.api.repos.BaseRepository;
-
 public abstract class BasePresenter<V, R> {
 
     protected V mView;

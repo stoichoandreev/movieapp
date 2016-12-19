@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import smovie.movieapp.api.repos.DetailsMovieRepository;
-import smovie.movieapp.api.repos.interfaces.IDetailsMovieRepository;
+import smovie.movieapp.repos.DetailsMovieRepository;
+import smovie.movieapp.repos.interfaces.IDetailsMovieRepository;
 import smovie.movieapp.constants.RequestParameters;
 import smovie.movieapp.models.MovieDetailsData;
 import smovie.movieapp.ui.views.DetailsMovieView;

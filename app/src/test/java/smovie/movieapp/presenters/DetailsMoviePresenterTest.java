@@ -9,16 +9,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Map;
-import smovie.movieapp.api.repos.DetailsMovieRepository;
-import smovie.movieapp.api.repos.interfaces.IBaseRepository;
-import smovie.movieapp.api.repos.interfaces.IDetailsMovieRepository;
+import smovie.movieapp.repos.DetailsMovieRepository;
+import smovie.movieapp.repos.interfaces.IBaseRepository;
+import smovie.movieapp.repos.interfaces.IDetailsMovieRepository;
 import smovie.movieapp.models.MovieDetailsData;
 import smovie.movieapp.ui.views.DetailsMovieView;
 
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 
 /**
  * Created by sniper on 12/8/16.

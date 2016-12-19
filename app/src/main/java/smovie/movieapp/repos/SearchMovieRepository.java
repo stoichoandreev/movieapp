@@ -1,4 +1,4 @@
-package smovie.movieapp.api.repos;
+package smovie.movieapp.repos;
 
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 
@@ -12,7 +12,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import smovie.movieapp.MovieApp;
 import smovie.movieapp.api.pojos.MovieSearchQueryParseData;
-import smovie.movieapp.api.repos.interfaces.ISearchMovieRepository;
+import smovie.movieapp.repos.interfaces.ISearchMovieRepository;
 
 public class SearchMovieRepository extends BaseRepository implements ISearchMovieRepository {
 
@@ -29,7 +29,6 @@ public class SearchMovieRepository extends BaseRepository implements ISearchMovi
                         return getApiService().getMovieTitles(searchByMap).onErrorResumeNext(Observable.empty());//subscription will be terminated once an error is emitted, we should avoid that
                     }
                 })
-                .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getRxSearchObserver(callback));
     }

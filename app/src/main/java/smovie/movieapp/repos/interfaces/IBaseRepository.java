@@ -1,8 +1,6 @@
-package smovie.movieapp.api.repos.interfaces;
+package smovie.movieapp.repos.interfaces;
 
 import java.util.List;
-
-import smovie.movieapp.api.ApiService;
 
 /**
  * Data Repository interface.

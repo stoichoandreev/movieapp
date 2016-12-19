@@ -1,10 +1,9 @@
-package smovie.movieapp.api.repos.interfaces;
+package smovie.movieapp.repos.interfaces;
 
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 
 import rx.Observable;
 import smovie.movieapp.api.pojos.MovieSearchQueryParseData;
-import smovie.movieapp.api.repos.interfaces.IBaseRepository;
 
 /**
  * Data Repository interface about SearchMovieView.

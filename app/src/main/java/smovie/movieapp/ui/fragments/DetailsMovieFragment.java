@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import smovie.movieapp.R;
 import smovie.movieapp.api.pojos.MovieData;
-import smovie.movieapp.api.repos.DetailsMovieRepository;
+import smovie.movieapp.repos.DetailsMovieRepository;
 import smovie.movieapp.databinding.FragmentMovieDetailsBinding;
 import smovie.movieapp.enums.FragmentAction;
 import smovie.movieapp.enums.ToolbarAction;

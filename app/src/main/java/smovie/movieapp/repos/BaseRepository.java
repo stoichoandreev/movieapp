@@ -1,4 +1,4 @@
-package smovie.movieapp.api.repos;
+package smovie.movieapp.repos;
 
 import smovie.movieapp.api.ApiService;
 import smovie.movieapp.api.RetrofitServiceProvider;

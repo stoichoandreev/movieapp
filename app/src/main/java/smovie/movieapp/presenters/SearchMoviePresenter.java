@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import smovie.movieapp.api.pojos.MovieSearchQueryParseData;
-import smovie.movieapp.api.repos.interfaces.ISearchMovieRepository;
+import smovie.movieapp.repos.interfaces.ISearchMovieRepository;
 import smovie.movieapp.constants.RequestParameters;
 import smovie.movieapp.listeners.RecyclerItemClickListener;
 import smovie.movieapp.ui.views.SearchMovieView;

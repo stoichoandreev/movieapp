@@ -19,6 +19,7 @@ import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.schedulers.Schedulers;
 import smovie.movieapp.BuildConfig;
 import smovie.movieapp.constants.Preferences;
 
@@ -64,7 +65,7 @@ public class RetrofitServiceProvider {
         instance = new Retrofit.Builder()
                 .baseUrl(BuildConfig.DEBUG ? Preferences.DEV_API_BASE_URL : Preferences.PROD_API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))//Eliminate to put subscribeOn(Schedulers.io)) in every call
                 .client(okHttpClient)
                 .build().create(ApiService.class);
 

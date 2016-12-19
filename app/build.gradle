@@ -54,11 +54,16 @@ android {
 //            java.srcDirs = ['src/main/java', 'src/androidTest/']
 //        }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 ext {
     //dependencies
     jUnit = '4.12'
     mockito = '2.2.28'
+    powermock = '1.6.6'
+    easymock = '3.4'
     junitRunner = '0.5'
     espresso = '2.2.2'
     mockServer = '3.5.0'
@@ -89,6 +94,10 @@ dependencies {
     * Unit test tools (could need Robolectric as well)
      */
     testCompile "org.mockito:mockito-core:$mockito"
+    testCompile "org.easymock:easymock:$easymock"
+    testCompile "org.powermock:powermock-core:$powermock"
+    testCompile "org.powermock:powermock-api-easymock:$powermock"
+    testCompile "org.powermock:powermock-module-junit4:$powermock"
     testCompile("com.android.support.test.espresso:espresso-contrib:$espresso") {
         exclude module: 'support-annotations'
         exclude group: 'com.android.support', module: 'appcompat'

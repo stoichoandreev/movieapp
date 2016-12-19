@@ -15,7 +15,7 @@ import smovie.movieapp.R;
 import smovie.movieapp.adapter.MovieAdapter;
 import smovie.movieapp.api.pojos.MovieData;
 import smovie.movieapp.api.pojos.MovieSearchQueryParseData;
-import smovie.movieapp.api.repos.SearchMovieRepository;
+import smovie.movieapp.repos.SearchMovieRepository;
 import smovie.movieapp.databinding.FragmentMovieSearchBinding;
 import smovie.movieapp.enums.FragmentAction;
 import smovie.movieapp.enums.ToolbarAction;
