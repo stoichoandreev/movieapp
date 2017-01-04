@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.view.View;
 
+import smovie.movieapp.api.pojos.MovieData;
 import smovie.movieapp.enums.ToolbarAction;
+import smovie.movieapp.ui.fragments.DetailsMovieFragment;
 import smovie.movieapp.ui.fragments.SearchMovieFragment;
 import smovie.movieapp.utils.RegularUtils;
 

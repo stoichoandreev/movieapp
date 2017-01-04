@@ -51,6 +51,13 @@ public abstract class BaseFragment extends Fragment {
             mPresenter.unbindView();
         }
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mPresenter != null) {
+            mPresenter.destroyAllSubscriptions();
+        }
+    }
     @UiThread
     protected String getStringResourceSafety(@StringRes int stringResource){
         return isAdded() ? getResources().getString(stringResource) : "";

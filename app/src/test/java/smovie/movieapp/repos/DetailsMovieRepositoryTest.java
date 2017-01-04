@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Map;
@@ -12,13 +11,6 @@ import java.util.Map;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 import smovie.movieapp.api.pojos.ExtendedMoveData;
-import smovie.movieapp.models.MovieDetailsData;
-import smovie.movieapp.repos.interfaces.IBaseRepository;
-import smovie.movieapp.repos.repo_subscribers.RequestMovieDetailsSubscriber;
-
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 /**
  * Created by sniper on 19-Dec-2016.
@@ -30,8 +22,6 @@ public class DetailsMovieRepositoryTest {
 
     @Mock
     private Map<String, String> searchMap;
-    @Mock
-    private IBaseRepository.Callback<MovieDetailsData> callback;
     @Mock
     private ExtendedMoveData data;
     @Mock
@@ -46,31 +36,31 @@ public class DetailsMovieRepositoryTest {
     public void shouldSuccessWhenRequestMovieDetails() throws Exception {
         Observable<ExtendedMoveData> movieDetailsObservable = Observable.just(data);//replace our long taking observable with a mocked
         movieDetailsObservable.subscribe(testSubscriber);
-        detailsMovieRepository.requestMovieDetails(callback, searchMap);
+        detailsMovieRepository.requestMovieDetails(searchMap);
         testSubscriber.assertNoErrors();//no errors
         testSubscriber.assertValue(data);//subscriber has same value from the observable
         testSubscriber.assertCompleted();//subscriber completed
     }
-    /**
-     * Test does subscriber return in onNext the right view model data (MovieDetailsData.class)
-     * @throws Exception
-     */
-    @Test
-    public void shouldReturnMovieDetailsViewModelDataToPresenterFromSubscriberNext() throws Exception {
-        RequestMovieDetailsSubscriber requestMovieDetailsSubscriber = new RequestMovieDetailsSubscriber(callback);
-        requestMovieDetailsSubscriber.onNext(data);
-        verify(callback, times(1)).onDataUpdated(isA(MovieDetailsData.class));
-    }
-
-    /**
-     * Test does subscriber return error to the presenter (with the callback)
-     * @throws Exception
-     */
-    @Test
-    public void shouldReturnThrowableErrorToPresenter() throws Exception {
-        RequestMovieDetailsSubscriber requestMovieDetailsSubscriber = new RequestMovieDetailsSubscriber(callback);
-        Throwable error = Mockito.mock(Throwable.class);
-        requestMovieDetailsSubscriber.onError(error);
-        verify(callback, times(1)).onError(error);
-    }
+//    /**
+//     * Test does subscriber return in onNext the right view model data (MovieDetailsData.class)
+//     * @throws Exception
+//     */
+//    @Test
+//    public void shouldReturnMovieDetailsViewModelDataToPresenterFromSubscriberNext() throws Exception {
+//        RequestMovieDetailsSubscriber requestMovieDetailsSubscriber = new RequestMovieDetailsSubscriber(callback);
+//        requestMovieDetailsSubscriber.onNext(data);
+//        verify(callback, times(1)).onDataUpdated(isA(MovieDetailsData.class));
+//    }
+//
+//    /**
+//     * Test does subscriber return error to the presenter (with the callback)
+//     * @throws Exception
+//     */
+//    @Test
+//    public void shouldReturnThrowableErrorToPresenter() throws Exception {
+//        RequestMovieDetailsSubscriber requestMovieDetailsSubscriber = new RequestMovieDetailsSubscriber(callback);
+//        Throwable error = Mockito.mock(Throwable.class);
+//        requestMovieDetailsSubscriber.onError(error);
+//        verify(callback, times(1)).onError(error);
+//    }
 }

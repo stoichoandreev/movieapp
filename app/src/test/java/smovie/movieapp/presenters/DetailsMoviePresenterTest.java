@@ -8,11 +8,11 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import java.util.Map;
+
+import smovie.movieapp.models.MovieDetailsData;
 import smovie.movieapp.repos.DetailsMovieRepository;
 import smovie.movieapp.repos.interfaces.IBaseRepository;
 import smovie.movieapp.repos.interfaces.IDetailsMovieRepository;
-import smovie.movieapp.models.MovieDetailsData;
 import smovie.movieapp.ui.views.DetailsMovieView;
 
 import static org.mockito.Matchers.isA;
@@ -52,15 +52,5 @@ public class DetailsMoviePresenterTest {
         when(detailsMovieView.getImdbId()).thenReturn(null);
         presenter.getMovieDetailsById();
         verify(detailsMovieView).onRepositoryErrorOccurred(isA(Throwable.class));
-    }
-    /**
-     * Test that repository receive map with the params
-     * @throws Exception
-     */
-    @Test
-    public void doesMovieDetailsRequestReceiveMapParams() throws Exception {
-        when(detailsMovieView.getImdbId()).thenReturn(IMDB_MOCK_ID);
-        presenter.getMovieDetailsById();
-        verify(detailsMovieRepository).requestMovieDetails(repositoryCallbackCollaborator.capture(), isA(Map.class));
     }
 }

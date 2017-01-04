@@ -1,15 +1,19 @@
 package smovie.movieapp.presenters;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import smovie.movieapp.repos.DetailsMovieRepository;
-import smovie.movieapp.repos.interfaces.IDetailsMovieRepository;
+import rx.Observable;
+import rx.Subscriber;
+import smovie.movieapp.MovieApp;
+import smovie.movieapp.api.pojos.ExtendedMoveData;
 import smovie.movieapp.constants.RequestParameters;
 import smovie.movieapp.models.MovieDetailsData;
+import smovie.movieapp.repos.DetailsMovieRepository;
+import smovie.movieapp.repos.interfaces.IDetailsMovieRepository;
 import smovie.movieapp.ui.views.DetailsMovieView;
 
 /**
@@ -29,27 +33,23 @@ public class DetailsMoviePresenter extends BasePresenter<DetailsMovieView, IDeta
         }
         final Map<String, String> searchMap = new HashMap<>();
         searchMap.put(RequestParameters.MOVIE_IMDB_ID_SEARCH, mView.getImdbId());
-        mRepository.requestMovieDetails(getCallback(), searchMap);
-    }
-    public IDetailsMovieRepository.Callback<MovieDetailsData> getCallback(){
-        return new IDetailsMovieRepository.Callback<MovieDetailsData>(){
+        mView.setProgressVisibility(View.VISIBLE);
+        final Observable<ExtendedMoveData> observable = mRepository.requestMovieDetails(searchMap);
+        addSubscription(observable.subscribe(new Subscriber<ExtendedMoveData>() {
             @Override
-            public void onDataObserveStart() {
-                mView.setProgressVisibility(View.VISIBLE);
-            }
+            public void onCompleted() {}
+
             @Override
-            public void onDataUpdated(MovieDetailsData data) {
+            public void onError(Throwable e) {
                 mView.setProgressVisibility(View.INVISIBLE);
-                mView.onMovieDetailsReady(data);
+                mView.onRepositoryErrorOccurred((!MovieApp.isOnline) ? new Throwable("You seems to be offline") : e);
             }
+
             @Override
-            public void onListDataUpdated(List<MovieDetailsData> data) {
-            }
-            @Override
-            public void onError(Throwable throwable) {
+            public void onNext(ExtendedMoveData extendedMoveData) {
                 mView.setProgressVisibility(View.INVISIBLE);
-                mView.onRepositoryErrorOccurred(throwable);
+                mView.onMovieDetailsReady(MovieDetailsData.from(extendedMoveData));
             }
-        };
+        }));
     }
 }
